@@ -1,54 +1,92 @@
-# AccessiLearn 🧠🔊
+# 🧠 AccessiLearn: AI-Powered Summarization for Inclusive Learning
 
-AccessiLearn is a browser-based app designed to help students and educators by providing instant text summarization and read-aloud features.
+AccessiLearn is a browser-based tool designed to make reading and understanding content more accessible for students and educators. It summarizes long text using artificial intelligence and offers voice playback, visual enhancements, and note-taking—all in a clean, distraction-free interface.
 
-## Features
+## 🚀 Why AccessiLearn?
 
-- 🧠 AI Summarization using Hugging Face Transformers
-- 🔊 Read aloud with speech synthesis
-- ⏹️ Toggle to start/stop narration
-- 📒 Draggable sticky notes with autosave
-- ✨ Typing animation ("AccessiLearn_")
-- 🔧 Accessibility toggles:
-  - Contrast mode
-  - Night mode
-  - Large font
-  - Dyslexia font
+Modern education isn't always designed with accessibility in mind. Learners who face challenges like cognitive load, vision impairments, or dyslexia need extra tools—not fewer options. AccessiLearn was built during the **Coders Club Hackathon 2025** to solve this gap with simplicity and thoughtful design.
 
-## Tech Stack
+---
 
-- HTML, CSS, JavaScript
-- Flask (Python)
-- Hugging Face (Transformers)
-- Web Speech API
-- LocalStorage
+## ✨ Core Features
 
-## Requirements
+- 🧠 AI Summarization using Hugging Face's BART-Large-CNN model  
+- 🔊 Read Aloud Toggle using Web Speech API  
+- ⏹️ Start/Stop voice playback with intuitive controls  
+- 📒 Sticky Notes saved with LocalStorage  
+- 🎩 Typing Animation: “AccessiLearn_”  
+- 🌓 Accessibility Modes: High contrast, large font, dyslexia font, and night mode  
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer     | Technology                    |
+|-----------|-------------------------------|
+| Frontend  | HTML, CSS, JavaScript         |
+| Backend   | Flask, Gunicorn               |
+| AI Model  | Hugging Face Transformers     |
+| Voice     | Web Speech API                |
+| Hosting   | GitHub Pages + Render         |
+| Storage   | LocalStorage (Notes, Toggles) |
+
+---
+
+## 🧪 How It Works
+
+1. Type or paste any paragraph  
+2. Click "Summarize" → sends request to Hugging Face API  
+3. Receive a concise summary + optional voice playback  
+4. Customize your experience with sticky notes and toggles  
+
+---
+
+## 🐙 Repository Structure
 
 ```
-flask
-flask-cors
-transformers
-torch
-sentencepiece
-gunicorn
-```
-
-## Repo Structure
-
-```
-Project/
+AccessiLearn/
 ├── app.py
+├── requirements.txt
 ├── index.html
 ├── style.css
 ├── script.js
-├── requirements.txt
+├── templates/
+│   └── index.html
+├── Final Record.mp4
 ```
 
-## Deploying on Render
+---
 
-- Upload the full project to GitHub
-- Use `gunicorn app:app` as your start command
-- Make sure `requirements.txt` is lowercase
-- Set Python runtime (3.10+ recommended)
-- Update `script.js` API calls to use your Render URL
+## 🌍 Live Demo
+
+🔗 [Visit AccessiLearn](https://naik-datta8237.github.io/Project)
+
+🖥️ Hosted via GitHub Pages (frontend) & Render (backend Flask API)
+
+---
+
+## 📦 Installation
+
+Install dependencies locally:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run locally:
+
+```bash
+python app.py
+```
+
+---
+
+## 🎥 Demo Video
+
+📺 [Watch Final Record](./Final%20Record.mp4)
+
+---
+
+## 🤝 Built for Coders Club Hackathon 2025
+
+Designed with creativity, inclusiveness, and storytelling at its heart. AccessiLearn aims to make digital education friendlier for everyone.
