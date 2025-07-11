@@ -19,7 +19,7 @@
       <button aria-label="Toggle High Contrast" onclick="toggleContrast()"><i class="fas fa-adjust"></i> Contrast</button>
       <button aria-label="Adjust Font Size" onclick="toggleFontSize()"><i class="fas fa-text-height"></i> Font Size</button>
       <button aria-label="Enable Dyslexia Font" onclick="toggleDyslexiaFont()"><i class="fas fa-font"></i> Dyslexia Font</button>
-      <button aria-label="Read Content Aloud" onclick="readText()"><i class="fas fa-volume-up"></i> Read Aloud</button>
+      <button aria-label="Toggle Read Aloud" onclick="toggleReadContent()" id="toggleReadBtn">Read Aloud</button>
       <button aria-label="Toggle Dark Mode" onclick="toggleNightMode()"><i class="fas fa-moon"></i> Night Mode</button>
       <button aria-label="Add Sticky Note" onclick="addStickyNote()"><i class="fas fa-sticky-note"></i> Sticky Note</button>
       <button aria-label="Summarize Content" onclick="summarizeText()"><i class="fas fa-lightbulb"></i> Summarize</button>
@@ -38,6 +38,7 @@
       <div id="summary-actions" class="summary-controls">
         <button id="copySummaryBtn" onclick="copySummary()" style="display: none;" aria-label="Copy Summary">📋 Copy Summary</button>
         <button id="readSummaryBtn" onclick="readSummary()" style="display: none;" aria-label="Read Summary Aloud">🔊 Read Summary</button>
+         <button id="stopSummaryBtn" onclick="stopReading()" style="display: none;" aria-label="Stop Reading">⏹️ Stop</button>
       </div>
     </main>
 
