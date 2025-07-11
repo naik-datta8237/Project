@@ -16,6 +16,8 @@ function typeTitle() {
 
   type();
 }
+let index = 0;
+let isReading = false;
 
 // ============ Accessibility Toggles ============
 function toggleContrast() {
@@ -41,7 +43,35 @@ function readText() {
   const speech = new SpeechSynthesisUtterance(content);
   speechSynthesis.speak(speech);
 }
+let isReadingContent = false;
+let contentUtterance = null;
 
+function toggleReadContent() {
+  const button = document.getElementById("toggleReadBtn");
+
+  if (isReadingContent) {
+    speechSynthesis.cancel();
+    isReadingContent = false;
+    button.innerText = "🔊 Read Aloud";
+  } else {
+    const content = document.getElementById("content").innerText.trim();
+    if (!content) return;
+
+    contentUtterance = new SpeechSynthesisUtterance(content);
+    contentUtterance.rate = 1.3;
+    contentUtterance.pitch = 1;
+    contentUtterance.volume = 1;
+
+    contentUtterance.onend = () => {
+      isReadingContent = false;
+      button.innerText = "🔊 Read Aloud";
+    };
+
+    speechSynthesis.speak(contentUtterance);
+    isReadingContent = true;
+    button.innerText = "⏹️ Stop Reading";
+  }
+}
 // ============ Add Draggable Sticky Note ============
 function addStickyNote(x = null, y = null, content = "", id = `note-${Date.now()}`) {
   const note = document.createElement("textarea");
@@ -163,6 +193,7 @@ summaryBox.innerHTML = `<h3>🧠 Summary</h3><p>${summary}</p>`;
 
     copyBtn.style.display = "inline-block";
     readBtn.style.display = "inline-block";
+    document.getElementById("stopSummaryBtn").style.display = "inline-block";
     summaryBox.scrollIntoView({ behavior: "smooth" });
 
   } catch (err) {
@@ -189,18 +220,69 @@ function copySummary() {
     button.innerText = "📋 Copy Summary";
   }, 1500);
 }
+// ============ Stop Read aloud =============
+function stopReading() {
+  speechSynthesis.cancel();
 
+  // Remove highlight from any word
+  const spans = document.querySelectorAll("#tracked-summary span");
+  spans.forEach(span => span.classList.remove("highlighted"));
+}
 // ============ Read Summary =============
 function readSummary() {
   const summaryBox = document.getElementById("summary-box");
-  const summaryText = summaryBox.innerText.replace("🧠 Summary", "").trim();
+  const summaryRaw = summaryBox.innerText.replace("🧠 Summary", "").trim();
 
-  if (!summaryText) return;
+  if (!summaryRaw) return;
 
-  const speech = new SpeechSynthesisUtterance(summaryText);
-  speechSynthesis.speak(speech);
+  speechSynthesis.cancel(); // Stop any existing speech
+
+  const utterance = new SpeechSynthesisUtterance(summaryRaw);
+  utterance.rate = 1.3; // Adjust for natural pace (1.0 to 1.5 is great)
+  utterance.pitch = 1;
+  utterance.volume = 1;
+
+  utterance.onstart = () => {
+    document.getElementById("stopSummaryBtn").style.display = "inline-block";
+  };
+
+  utterance.onend = () => {
+    document.getElementById("stopSummaryBtn").style.display = "none";
+  };
+
+  utterance.onerror = () => {
+    console.error("Speech synthesis failed.");
+    document.getElementById("stopSummaryBtn").style.display = "none";
+  };
+
+  speechSynthesis.speak(utterance);
 }
+function stopReading() {
+  speechSynthesis.cancel();
+  isReading = false;
+  index = 0;
 
+  const spans = document.querySelectorAll("#tracked-summary span");
+  spans.forEach(span => span.classList.remove("highlighted"));
+
+  const stopBtn = document.getElementById("stopSummaryBtn");
+  stopBtn.innerText = "⏹️ Stopped";
+  setTimeout(() => {
+    stopBtn.innerText = "⏹️ Stop";
+  }, 1500);
+}
+function speakWord(text, callback) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.rate = 3.5;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  utterance.onend = callback;
+  utterance.onerror = () => {
+    console.error("Speech synthesis failed");
+    callback();
+  };
+  speechSynthesis.speak(utterance);
+}
 // ============ Highlight Line ============
 document.addEventListener("mousemove", function (e) {
   const highlight = document.getElementById("highlight-line");
