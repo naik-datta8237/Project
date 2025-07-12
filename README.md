@@ -83,7 +83,8 @@ python app.py
 
 ## 🎥 Demo Video
 
-📺 [Watch Final Record](./Final%20Record.mp4)
+📺 [Watch Final Record][![Watch the demo](https://img.youtube.com/vi/O9g7gsTRsLE/0.jpg)](https://www.youtube.com/watch?v=O9g7gsTRsLE)
+
 
 ---
 
